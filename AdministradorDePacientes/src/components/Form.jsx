@@ -73,8 +73,8 @@ export const Form = ({patients, setPatients,patient,setPatient}) => {
 
   return (
     <div className="md:w-1/2 md:ml-5 lg:w-2/5">
-      <h2 className='font-black text-xl text-center'> Formulario</h2>
-      <p className='text-lg mt-5 text-center mb-10'>
+      <h2 className='font-black text-3xl text-center'> Formulario</h2>
+      <p className='text-xl mt-5 mb-10 text-center'>
         Añade pacientes y {" "}
         <span className='text-indigo-600 font-bold '>Administralos</span>
       </p>
