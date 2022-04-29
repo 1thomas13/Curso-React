@@ -1,7 +1,7 @@
 import {useState,useEffect} from 'react'
 import {Error} from "./Error"
 
-export const Form = ({patients, setPatients,patient}) => {
+export const Form = ({patients, setPatients,patient,setPatient}) => {
 
   const [name,setName] = useState('')
   const [email,setEmail] = useState('')
@@ -43,10 +43,25 @@ export const Form = ({patients, setPatients,patient}) => {
       client,
       date,
       symptoms,
-      id:generateId()
     }
 
-    setPatients([...patients, patientObject])
+    if(patient.id){
+      patientObject.id = patient.id
+
+      const patientsUpdate = patients.map(patientState => {
+        if(patientState.id === patientObject.id){
+          return patientObject
+        }
+        return patient
+      })
+
+      setPatients(patientsUpdate)
+      setPatient({})
+    }
+    else{
+      patientObject.id = generateId()
+      setPatients([...patients, patientObject])
+    }
 
     setName('')
     setClient('')
