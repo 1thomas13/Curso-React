@@ -1,44 +1,50 @@
+
 import { useState } from 'react'
-import logo from './logo.svg'
-import './App.css'
+import { Header } from './components/header'
+import { Modal } from './components/Modal'
+import IconNewBudget from './img/nuevo-gasto.svg'
 
 function App() {
-  const [count, setCount] = useState(0)
+
+  const [budget,setBudget] = useState(0)
+  const [isValidBudget,setIsValidBudget] = useState(false)
+
+  const [modal,setModal] = useState(false)
+
+  const [animateModal,setAnimateModal] = useState(false)
+
+  const [budgets,setBudgets] = useState([])
+
+  const saveBudget = (budget)=>{
+    setBudgets([...budgets], budget)
+  }
+
+  const handleNewBudget =() =>{
+    setModal(true)
+
+    setTimeout(()=>{
+      setAnimateModal(true)
+    },300)
+  }
 
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>Hello Vite + React!</p>
-        <p>
-          <button type="button" onClick={() => setCount((count) => count + 1)}>
-            count is: {count}
-          </button>
-        </p>
-        <p>
-          Edit <code>App.jsx</code> and save to test HMR updates.
-        </p>
-        <p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-          {' | '}
-          <a
-            className="App-link"
-            href="https://vitejs.dev/guide/features.html"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Vite Docs
-          </a>
-        </p>
-      </header>
+    <div>
+       <Header 
+        budget={budget}
+        setBudget={setBudget}
+        isValidBudget={isValidBudget}
+        setIsValidBudget={setIsValidBudget}
+       />
+       {isValidBudget && (
+          <div className='nuevo-gasto'>
+            <img src={IconNewBudget} alt='Nuevo gasto'
+              onClick={handleNewBudget}
+            />
+          </div>
+       )}
+      {modal && <Modal animateModal={animateModal} setAnimateModal={setAnimateModal} saveBudget={saveBudget} setModal={setModal}/>}
     </div>
+   
   )
 }
 
