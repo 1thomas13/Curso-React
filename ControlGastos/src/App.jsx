@@ -2,7 +2,9 @@
 import { useState } from 'react'
 import { Header } from './components/header'
 import { Modal } from './components/Modal'
-import IconNewBudget from './img/nuevo-gasto.svg'
+import IconNewBill from './img/nuevo-gasto.svg'
+import { generateId } from './helpers/generateId'
+import {ListBudgets} from './components/ListBudgets'
 
 function App() {
 
@@ -13,13 +15,25 @@ function App() {
 
   const [animateModal,setAnimateModal] = useState(false)
 
-  const [budgets,setBudgets] = useState([])
+  const [bills,setBills] = useState([])
 
-  const saveBudget = (budget)=>{
-    setBudgets([...budgets], budget)
+  const saveBill = bill =>{
+ 
+    bill.id = generateId()
+    console.log(bill)
+    
+    setBills([...bills], bill)
+    console.log(bills)
+
+    setAnimateModal(false)
+
+    setTimeout(()=>{
+        setModal(false)
+    },400)
+
   }
 
-  const handleNewBudget =() =>{
+  const handleNewBill =() =>{
     setModal(true)
 
     setTimeout(()=>{
@@ -36,13 +50,19 @@ function App() {
         setIsValidBudget={setIsValidBudget}
        />
        {isValidBudget && (
+        <>
+          <main>
+            <ListBudgets bills={bills}/>
+          </main>
+
           <div className='nuevo-gasto'>
-            <img src={IconNewBudget} alt='Nuevo gasto'
-              onClick={handleNewBudget}
+            <img src={IconNewBill} alt='Nuevo gasto'
+              onClick={handleNewBill}
             />
           </div>
+        </>
        )}
-      {modal && <Modal animateModal={animateModal} setAnimateModal={setAnimateModal} saveBudget={saveBudget} setModal={setModal}/>}
+      {modal && <Modal animateModal={animateModal} setAnimateModal={setAnimateModal} saveBill={saveBill} setModal={setModal}/>}
     </div>
    
   )

@@ -3,7 +3,7 @@ import React, { useState } from 'react'
 import iconCloseModal from '../img/cerrar.svg'
 import { Msj } from './Msj'
 
-export const Modal = ({setModal,animateModal,setAnimateModal,saveBudget}) => {
+export const Modal = ({setModal,animateModal,setAnimateModal,saveBill}) => {
 
     const [name,setName] = useState('')
     const [amount,setAmount] = useState(0)
@@ -24,7 +24,7 @@ export const Modal = ({setModal,animateModal,setAnimateModal,saveBudget}) => {
             return
         }
 
-        saveBudget({name,amount,category})
+        saveBill({name,amount,category})
 
     }
 
