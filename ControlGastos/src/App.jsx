@@ -4,7 +4,7 @@ import { Header } from './components/header'
 import { Modal } from './components/Modal'
 import IconNewBill from './img/nuevo-gasto.svg'
 import { generateId } from './helpers/generateId'
-import {ListBudgets} from './components/ListBudgets'
+import {ListBills} from './components/ListBills'
 
 function App() {
 
@@ -20,10 +20,9 @@ function App() {
   const saveBill = bill =>{
  
     bill.id = generateId()
-    console.log(bill)
-    
-    setBills([...bills], bill)
-    console.log(bills)
+    bill.date = Date.now()
+
+    setBills([...bills, bill])
 
     setAnimateModal(false)
 
@@ -42,8 +41,9 @@ function App() {
   }
 
   return (
-    <div>
+    <div className={modal ? 'fijar' : ''}>
        <Header 
+        bills={bills}
         budget={budget}
         setBudget={setBudget}
         isValidBudget={isValidBudget}
@@ -52,7 +52,7 @@ function App() {
        {isValidBudget && (
         <>
           <main>
-            <ListBudgets bills={bills}/>
+            <ListBills bills={bills}/>
           </main>
 
           <div className='nuevo-gasto'>

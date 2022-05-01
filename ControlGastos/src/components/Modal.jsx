@@ -71,7 +71,7 @@ export const Modal = ({setModal,animateModal,setAnimateModal,saveBill}) => {
                     <option value="casa">Casa</option>
                     <option value="ocio">Ocio</option>
                     <option value="salud">Salud</option>
-                    <option value="suscriptciones">Suscriptciones</option>
+                    <option value="suscripciones">Suscriptciones</option>
                     <option value="gastos">Gastos Varios</option>
                 </select>
             </div>
