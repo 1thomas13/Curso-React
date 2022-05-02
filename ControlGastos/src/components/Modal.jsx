@@ -3,14 +3,16 @@ import React, { useState } from 'react'
 import iconCloseModal from '../img/cerrar.svg'
 import { Msj } from './Msj'
 
-export const Modal = ({setModal,animateModal,setAnimateModal,saveBill}) => {
+export const Modal = ({setModal,animateModal,setAnimateModal,saveBill,editBill,setEditBill}) => {
 
     const [name,setName] = useState('')
     const [amount,setAmount] = useState(0)
     const [category, setCategory] = useState("")
 
-   
     const [msj,setMsj] = useState("")
+    const [id,setId] = useState('')
+
+    const [date,setDate] = useState()
 
     const handleSubmit = e =>{
         e.preventDefault()
@@ -24,20 +26,28 @@ export const Modal = ({setModal,animateModal,setAnimateModal,saveBill}) => {
             return
         }
 
-        saveBill({name,amount,category})
+        saveBill({name,amount,category,id,date})
 
     }
 
     const closeModal = ()=>{
         
         setAnimateModal(false)
-
+        setEditBill({})
         setTimeout(()=>{
             setModal(false)
         },400)
     }
-
-   
+  
+   useState(()=>{
+       if(Object.keys(editBill).length > 0){
+           setName(editBill.name)
+           setAmount(editBill.amount)
+           setCategory(editBill.category)
+           setId(editBill.id)
+           setDate(editBill.date)
+       }
+   },[])
 
   return (
     <div className='modal'>
@@ -47,7 +57,7 @@ export const Modal = ({setModal,animateModal,setAnimateModal,saveBill}) => {
             />
         </div>
         <form onSubmit={handleSubmit} className={`formulario ${animateModal ? "animar" : '' }`}>
-            <legend>Nuevo gasto</legend>
+            <legend>{editBill.name ? 'Editar Gasto' : 'Nuevo gasto'}</legend>
 
             {msj && <Msj type='error'>{msj}</Msj>}
 
@@ -77,7 +87,7 @@ export const Modal = ({setModal,animateModal,setAnimateModal,saveBill}) => {
             </div>
             <input
                 type="submit"
-                value="Añadir Gasto"
+                value={editBill.name ? 'Guardar Cambios' : 'Nuevo gasto'}
             />
         </form>
     </div>

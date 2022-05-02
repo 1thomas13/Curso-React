@@ -22,12 +22,12 @@ const dictionaryIcons = {
   gastos: IconBills
 }
 
-export const Bill = ({ bill }) => {
+export const Bill = ({ bill,setEditBill,deleteBill }) => {
   
   const leadingActions = ()=>{
     return (
     <LeadingActions>
-      <SwipeAction onClick={()=>console.log("Editar")}>
+      <SwipeAction onClick={()=>setEditBill(bill)}>
         Editar
       </SwipeAction>
     </LeadingActions>
@@ -36,19 +36,19 @@ export const Bill = ({ bill }) => {
 
   const trailingActions = ()=>{
     return (
-      <trailingActions>
-        <SwipeAction onClick={()=>console.log("eleminar")}>
+      <TrailingActions>
+        <SwipeAction onClick={()=>deleteBill(bill.id)} destructive={true}>
           Eleminar
         </SwipeAction>
-      </trailingActions>
+      </TrailingActions>
       )
   }
 
   return (
     <SwipeableList>
       <SwipeableListItem 
-        leadingActions={leadingActions}
-        trailingActions={trailingActions}
+        leadingActions={leadingActions()}
+        trailingActions={trailingActions()}
       >
         <div className='gasto sombra'>
           <div className='contenido-gasto'>
