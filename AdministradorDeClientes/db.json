@@ -1,0 +1,20 @@
+{
+  "clientes": [
+    {
+      "name": "Thomas Barreto",
+      "company": "n",
+      "email": "thomi.b137@gmail.com",
+      "numberPhone": "02964477730",
+      "notes": "",
+      "id": 1
+    },
+    {
+      "name": "Thomas Barreto",
+      "company": "n",
+      "email": "thomi.b137@gmail.com",
+      "numberPhone": "02964477730",
+      "notes": "",
+      "id": 2
+    }
+  ]
+}
