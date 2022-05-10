@@ -1,18 +1,39 @@
-import React,{Fragment} from 'react'
+import React,{Fragment, useContext} from 'react'
 import { marcas,years,plans } from '../constants'
+import useCotizador from '../hooks/useCotizador'
+import { Error } from './error'
 
 export const Form = () => {
-  return (
+
+   const {cotizarSeguro,data,handleChangeData,setError,error} = useCotizador()
+
+   
+   
+    const handleSubmit = (e) =>{
+        e.preventDefault()
+
+        if(Object.values(data).includes('') ){
+            return setError('Todos los campos obligatorios')
+            
+        }
+        setError('')
+        cotizarSeguro()
+    }
+
+    return (
     <>
-        <form>
+        {error &&  <Error/>}
+        <form
+            onSubmit={handleSubmit}
+        >
             <div className='my-5'>
                 <label className='block mb-3 font-bold text-gray-400 uppercase'>
                     Marca
                 </label>
-                <select name='brand' className='w-full p-3 bg-white border border-gray-200'>
+                <select value={data.brand} onChange={e=> handleChangeData(e)} name='brand' className='w-full p-3 bg-white border border-gray-200'>
                     <option value="">-- Selecciona una marca --</option>
                     {marcas.map((marca)=>{
-                        return <option key={marca.id} value={marca.id}>{marca.name}</option>
+                        return <option  key={marca.id} value={marca.id}>{marca.name}</option>
                     })}
                 </select>
             </div>
@@ -21,10 +42,10 @@ export const Form = () => {
                 <label className='block mb-3 font-bold text-gray-400 uppercase'>
                     Año
                 </label>
-                <select name='brand' className='w-full p-3 bg-white border border-gray-200'>
+                <select value={data.year} name='year' onChange={e=> handleChangeData(e)} className='w-full p-3 bg-white border border-gray-200'>
                     <option value="">-- Selecciona un Año --</option>
                     {years.map((year)=>{
-                        return <option key={year} value={year}>{year}</option>
+                        return <option  key={year} value={year}>{year}</option>
                     })}
                 </select>
             </div>
@@ -37,7 +58,7 @@ export const Form = () => {
                     {plans.map((plan)=>{
                         return <Fragment key={plan.id}>
                             <label>{plan.name}</label>
-                            <input type='radio' name='plan' value={plan.id}/>
+                            <input onChange={e=> handleChangeData(e)} type='radio' name='plan' value={plan.id}/>
                         </Fragment>
                     })}
                 </div>
