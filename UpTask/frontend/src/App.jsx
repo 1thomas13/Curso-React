@@ -1,15 +1,27 @@
-import { useState } from 'react'
+import {BrowserRouter,Routes,Route} from 'react-router-dom'
 
+import { AuthLayout } from './layouts/AuthLayout'
+import { ConfirmAccount } from './pages/ConfirmAccount'
+import { ForgetPassword } from './pages/ForgetPassword'
+import Login from './pages/Login'
+import { NewPassword } from './pages/NewPassword'
+import { Register } from './pages/Register'
 
 function App() {
-  const [count, setCount] = useState(0)
+  
 
   return (
-    <div>
-      <h1 classname=' font-bold'>
-        Uptask
-      </h1>
-    </div>
+    <BrowserRouter>
+      <Routes>
+        <Route path='/' element={<AuthLayout />}> 
+          <Route index element={<Login/>} />
+          <Route path='registrar' element={<Register/>} />
+          <Route path='olvide-mi-contraseña' element={<ForgetPassword/>} />
+          <Route path='olvide-mi-contraseña/:token' element={<NewPassword/>} />
+          <Route path='confirmar/:id' element={<ConfirmAccount/>} />
+        </Route>
+      </Routes>
+    </BrowserRouter>
   )
 }
 
