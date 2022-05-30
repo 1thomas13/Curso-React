@@ -1,5 +1,5 @@
 import express from 'express'
-import { addTask, deleteTask, setStateTask, updateTask } from '../controllers/task.js'
+import { addTask, deleteTask, getTask, setStateTask, updateTask } from '../controllers/task.js'
 import { checkAuth } from '../middleware/checkAuth.js'
 
 const router = express.Router()
@@ -7,7 +7,7 @@ const router = express.Router()
 router.post('/', checkAuth,addTask)
 
 router.route('/:id')
-    .get(checkAuth , addTask)
+    .get(checkAuth , getTask)
     .put(checkAuth ,updateTask)
     .delete(checkAuth ,deleteTask)
 

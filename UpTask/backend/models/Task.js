@@ -30,9 +30,8 @@ const taskSchema = mongoose.Schema({
         type:mongoose.Schema.Types.ObjectId,
         ref:'Project'
     },
-        timestamps:true
-    
-
+},{ 
+    timestamps:true  
 })
 
 const Task = mongoose.model('Task',taskSchema)

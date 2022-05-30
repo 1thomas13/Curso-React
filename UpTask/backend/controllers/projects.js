@@ -1,4 +1,5 @@
 import Project from "../models/Project.js"
+import Task from "../models/Task.js"
 
 export const getProjects = async (req,res)=>{
     const projects = await Project.find().where('creator').equals(req.user)
@@ -35,7 +36,11 @@ export const getProject = async (req,res)=>{
         return res.status(401).json({msg:'you dont have the permissions'})
     }
 
-    res.json(project)
+    const tasks = await Task.find().where("project").equals(project.id)
+
+
+
+    res.json({project,tasks})
 }
 
 export const editProject = async (req,res)=>{
