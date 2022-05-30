@@ -61,6 +61,8 @@ export const confirm = async(req,res) =>{
 
     const {token} = req.params
 
+    console.log(token)
+
     const confirmUser = await User.findOne({token})
 
     if(!confirmUser) {
