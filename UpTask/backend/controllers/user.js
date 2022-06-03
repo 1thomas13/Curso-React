@@ -1,4 +1,5 @@
 
+import { emailRegister, forgetPasswordEmail } from '../helpers/email.js'
 import { generateId } from '../helpers/generateId.js'
 import { generateJWT } from '../helpers/generateJWT.js'
 import User from '../models/User.js'
@@ -17,9 +18,11 @@ export const createUser = async(req,res) =>{
     try {
         const user = new User(req.body)
         user.token = generateId()
-        const createUser = await user.save()
+        await user.save()
         
-        res.json(createUser)
+        emailRegister({email:user.email, name:user.name, token:user.token})
+
+        res.json({msg:'Usuario Creado Correctamente, Revisa Tu Email Para Confirmar Tu Cuenta'})
 
     } catch (err) {
         console.log(err)
@@ -97,6 +100,8 @@ export const forgetPassword = async(req,res) =>{
         user.token = generateId()
 
         await user.save()
+
+        forgetPasswordEmail({email:user.email, name:user.email, token:user.token})
 
         res.json({msg: 'Hemos enviado un Email con las Instrucciones'})
 

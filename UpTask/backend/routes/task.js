@@ -11,6 +11,6 @@ router.route('/:id')
     .put(checkAuth ,updateTask)
     .delete(checkAuth ,deleteTask)
 
-router.post('/state/:id',checkAuth , setStateTask)
+router.patch('/state/:id',checkAuth , setStateTask)
 
 export default router
